@@ -1,0 +1,29 @@
+{
+  "name": "centichat",
+  "version": "1.0.0",
+  "description": "Lib para o chat do sistema da Centi Soluções",
+  "main": "main.js",
+  "scripts": {},
+  "keywords": [
+    "chat"
+  ],
+  "author": "Gleidson FerSanP",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.18.12",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-clean": "^0.3.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-jshint": "^2.0.4",
+    "gulp-plumber": "^1.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.6.1",
+    "gulp-text-simple": "^0.4.1",
+    "gulp-uglify": "^3.0.0",
+    "gulp-usemin": "^0.3.28",
+    "jasmine-core": "^2.6.4",
+    "jshint": "^2.9.5",
+    "jshint-stylish": "^2.2.1"
+  }
+}
