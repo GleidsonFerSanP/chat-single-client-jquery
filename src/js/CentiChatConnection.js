@@ -1,13 +1,14 @@
-var CentiChatConnection = function(config) {
+var CentiChatConnection = function() {
 
     if (!config) {
         console.error('Object config not present! wss destyne path is request for this object');
         return;
     }
-    var _self = this;
-    var _ws = null
 
-    this._create = (function() {
+    var _self = this;
+    var _ws = null;
+
+    (function() {
         _ws = new WebSocket(config.wss);
 
         _ws.onerror = function(error) {
@@ -21,34 +22,27 @@ var CentiChatConnection = function(config) {
         _ws.onopen = function(params) {
             if (_ws.readyState === 1) {
                 console.info('websocket connected');
+                register();
             }
         }
     })();
 
-    return {
-        create: this._create
+    this.send = function(message) {
+        var command = 'chat|gleidson.pinheiro|' + message;
+        console.log('Send command', command);
+        _ws.send(command);
     }
-    // this.execute = function() {
-    //     _self._create();
-    // }
 
-    // this._register = function register() {
-    //     var commandRegister = 'login|' + System.User + '|' + System.SessionID;
-    //     console.debug(_ws);
-    //     console.info('registered websocket');
-    //     try {
-    //         _ws.send(commandRegister);
-    //     } catch (error) {
-    //         $log.error(error);
-    //     }
-    // }
+    function register() {
+        console.log('_environment', _environment);
+        var commandRegister = 'login|' + _environment.user.name + '|' + _environment.user.name;
+        console.debug(_ws);
+        console.info('registered websocket');
+        try {
+            _ws.send(commandRegister);
+        } catch (error) {
+            $log.error(error);
+        }
+    }
 
-    // this._connect = (function(time) {
-    //     setTimeout(function() {
-    //         if (_ws.readyState !== 1) {
-    //             conn = new Connection();
-    //             conn.execute();
-    //         }
-    //     }, time);
-    // })();
 };

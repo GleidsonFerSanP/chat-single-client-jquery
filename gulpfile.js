@@ -18,7 +18,7 @@ var transformString = function(s) {
 var myTransformation = textTransformation(transformString);
 
 gulp.task('copyJs', ['js'], function() {
-    var textReplace = myTransformation.readFileSync('tmp/index.js');
+    var textReplace = myTransformation.readFileSync('tmp/tmp.js');
     return gulp.src(['src/js/CentiChat.js'])
         .pipe(replace('/*injectAllClassesHere*/', textReplace))
         .pipe(rename('centi.chat.jquery.min.js'))
@@ -29,16 +29,20 @@ gulp.task('copyJs', ['js'], function() {
 gulp.task('js', ['clean'], function() {
     return gulp.src(
             [
+                "bower_components/js-cookie/src/js.cookie.js",
+                "node_modules/jquery.maskedinput/src/jquery.maskedinput.js",
                 "src/js/CentiUtils.js",
+                "src/js/CentiChatEnvironment.js",
                 "src/js/CentiChatConnection.js",
                 "src/js/CentiChatMinWindow.js",
                 "src/js/CentiChatWindow.js",
+                "src/js/CentiChatForm.js",
                 "src/js/CentiChatTheme.js",
             ]
         )
         .pipe(plumber())
         //.pipe(uglify())
-        .pipe(concat('index.js'))
+        .pipe(concat('tmp.js'))
         .pipe(gulp.dest('tmp/'));
 });
 
@@ -56,6 +60,10 @@ gulp.task('clean', function() {
         .pipe(clean());
 });
 
+gulp.task('cleanTmp', ['copyJs'], function() {
+    return gulp.src(['tmp/'])
+        .pipe(clean());
+});
 
 gulp.task('usemin', ['clean'], function() {
     return gulp.src('src/*.html')
@@ -67,19 +75,20 @@ gulp.task('usemin', ['clean'], function() {
 
 gulp.task('libs', ['clean'], function() {
     return gulp.src([
-            'bower_components/jquery/dist/jquery.min.js'
+            'bower_components/jquery/dist/jquery.min.js',
+            'bower_components/bootstrap/dist'
         ])
         .pipe(plumber())
         //.pipe(uglify())
         .pipe(gulp.dest('demo/libs/'));
 });
 
-gulp.task('js-watch', ['libs', 'js', 'copyJs', 'usemin'], function(done) {
+gulp.task('js-watch', ['libs', 'js', 'copyJs', 'usemin', 'cleanTmp'], function(done) {
     browserSync.reload();
     done();
 });
 
-gulp.task('server', ['libs', 'js', 'copyJs', 'usemin'], function() {
+gulp.task('server', ['libs', 'js', 'copyJs', 'usemin', 'cleanTmp'], function() {
     browserSync.init({
         server: {
             baseDir: 'demo'

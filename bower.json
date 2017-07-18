@@ -1,0 +1,25 @@
+{
+  "name": "centichat",
+  "description": "Lib para o chat do sistema da Centi Soluções",
+  "main": "main.js",
+  "authors": [
+    "Gleidson FerSanP"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "chat"
+  ],
+  "homepage": "https://github.com/GleidsonFerSanP/chat-single-client-jquery",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "js-cookie": "2.1.4",
+    "bootstrap": "^3.3.7"
+  }
+}
